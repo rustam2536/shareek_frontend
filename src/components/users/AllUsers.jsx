@@ -118,6 +118,8 @@ const AllUsers = () => {
                                                 <th>Status</th>
                                                 <th>Verified</th>
                                                 <th>Blocked</th>
+                                                <th>Ad Id</th>
+                                                <th>Ad Expiry</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -154,6 +156,8 @@ const AllUsers = () => {
                                                                 {user.blocked ? "Blocked" : "UnBlocked"}
                                                             </div>
                                                         </td>
+                                                        <td>{user.adId}</td>
+                                                        <td>{user.expiryDate}</td>
                                                         <td>
                                                             <i className="fa fa-trash"></i>
                                                             {/* <Link to="/user-details" state={{ uniqueId: user.uniqueId }}>

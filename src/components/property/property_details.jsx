@@ -15,7 +15,7 @@ const PropertyDetails = () => {
     const { uniqueId, statusFilterState } = location.state || {};
 
     console.log(location.state, "statusFilterStatestatusFilterState");
-    
+
     const [dataList, setData] = useState({});
     const [activeTab, setActiveTab] = useState("overview"); // <== For tab switch
     const [showEditModal, setShowEditModal] = useState(false);
@@ -197,64 +197,66 @@ const PropertyDetails = () => {
 
                                         <div className="row p-3">
 
-                                            <div className="card col-md-8 mt-4" style={{ background: "#f9f9f9" }}>
+                                            <div className="col-md-8 mt-4 px-md-3 px-0">
+                                                <div className="row m-0 p-3" style={{ background: "#f9f9f9" }}>
+                                                    <div className="d-flex justify-content-end align-items-center my-3 my-md-2">
+                                                        <button
+                                                            className="btn btn-primary"
+                                                            onClick={() => setShowEditModal(true)}
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                    <div className="col-md-6">
 
-                                                <div className="d-flex justify-content-end align-items-center my-3 my-md-2">
-                                                    <button
-                                                        className="btn btn-primary"
-                                                        onClick={() => setShowEditModal(true)}
-                                                    >
-                                                        Edit
-                                                    </button>
+                                                        <p className="text-primary h5" style={{ marginTop: "-30px", pointerEvents: "none" }}>SAR {dataList?.price}</p>
+
+                                                        <div className="mb-3">
+                                                            <label className="form-label"><strong>Title:</strong></label>
+                                                            <p>{dataList?.title || "-"}</p>
+                                                        </div>
+
+                                                        <div className="mb-3">
+                                                            <label className="form-label"><strong>Description:</strong></label>
+                                                            <p>{dataList?.description || "-"}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mt-4">
+
+                                                        {/* Arabic Title */}
+                                                        <div className="mb-3">
+                                                            <label className="form-label"><strong>Title (Arabic):</strong></label>
+                                                            <p>{dataList?.titleArabic || "-"}</p>
+                                                        </div>
+
+                                                        {/* Arabic Description */}
+                                                        <div className="mb-3">
+                                                            <label className="form-label"><strong>Description (Arabic):</strong></label>
+                                                            <p>{dataList?.descriptionArabic || "-"}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-
-                                                <p className="text-primary h5" style={{ marginTop: "-30px" }}>SAR {dataList?.price}</p>
-
-                                                <div className="mb-3">
-                                                    <label className="form-label"><strong>Title:</strong></label>
-                                                    <p>{dataList?.title || "-"}</p>
-                                                </div>
-
-                                                <div className="mb-3">
-                                                    <label className="form-label"><strong>Description:</strong></label>
-                                                    <p>{dataList?.description || "-"}</p>
-                                                </div>
-
-                                                {/* Arabic Title */}
-                                                <div className="mb-3">
-                                                    <label className="form-label"><strong>Title (Arabic):</strong></label>
-                                                    <p>{dataList?.titleArabic || "-"}</p>
-                                                </div>
-
-                                                {/* Arabic Description */}
-                                                <div className="mb-3">
-                                                    <label className="form-label"><strong>Description (Arabic):</strong></label>
-                                                    <p>{dataList?.descriptionArabic || "-"}</p>
-                                                </div>
-
                                             </div>
                                             {/* Ad Id */}
-                                            <div className="card px-3 col-md-4">
-                                                <div className="card mt-4 pt-3" style={{ background: "#f9f9f9" }}>
-                                                    <div className="mb-3">
-                                                        <div>
-                                                            <label className="form-label"><strong>Ad Id:</strong></label>
-                                                            <p>{dataList?.adId || "-"}</p>
-                                                        </div>
-                                                        <div>
-                                                            <label className="form-label"><strong>Ad Expiry:</strong></label>
-                                                            <p>{dataList?.adExpiry || "-"}</p>
-                                                        </div>
-                                                        {
-                                                            dataList?.sellerIsVerified ? null : dataList?.adId ? (
-                                                                <div>
-                                                                    <button type="button" onClick={handleApprove} className="btn btn-success">
-                                                                        Approve
-                                                                    </button>
-                                                                </div>
-                                                            ) : null
-                                                        }
+                                            <div className="col-md-4 mt-4" style={{ background: "#f9f9f9" }}>
+                                                <div className="m-3">
+                                                    <div>
+                                                        <label className="form-label"><strong>Ad Id:</strong></label>
+                                                        <p>{dataList?.adId || "-"}</p>
                                                     </div>
+                                                    <div>
+                                                        <label className="form-label"><strong>Ad Expiry:</strong></label>
+                                                        <p>{dataList?.adExpiry || "-"}</p>
+                                                    </div>
+                                                    {
+                                                        dataList?.sellerIsVerified ? null : dataList?.adId ? (
+                                                            <div>
+                                                                <button type="button" onClick={handleApprove} className="btn btn-success">
+                                                                    Verify Ad Id
+                                                                </button>
+                                                            </div>
+                                                        ) : null
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -291,121 +293,128 @@ const PropertyDetails = () => {
                                         {/* overview / features */}
                                         <div className="col-md-12">
 
-                                            {/* Toggle buttons */}
-                                            <div>
-                                                {/* <div style={{display: "flex", justifyContent: "space-evenly"}}> */}
-                                                <div className="btn-group my-3" role="group">
-                                                    <button
-                                                        type="button"
-                                                        className={`btn ${activeTab === "overview" ? "btn-primary" : "btn-outline-primary"}`}
-                                                        onClick={() => setActiveTab("overview")}
-                                                    >
-                                                        Overview
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        className={`btn ${activeTab === "features" ? "btn-primary" : "btn-outline-primary"}`}
-                                                        onClick={() => setActiveTab("features")}
-                                                    >
-                                                        Features
-                                                    </button>
-                                                </div>
-                                                <div className="d-flex btn-group my-3 align-items-center" style={{ float: "right" }}>
-                                                    <div className="fw-bold mx-2">Change Status:</div>
-                                                    <div className="">
-                                                        <select
-                                                            value={dataList?.status}
-                                                            className="form-select form-select-sm"
-                                                            name="status"
-                                                            onChange={(e) => {
-                                                                setSelectedStatus(e.target.value);
-                                                                setSelectedId(dataList?.uniqueId);
-                                                                setShowModal(true);
-                                                            }}
-                                                        // onChange={(e) => handleStatusChange(e.target.value, dataList?.uniqueId)}
-                                                        >
-                                                            <option value="" disabled>Change Status</option>
-                                                            {Object.values(PropertyStatus).map((st) => (
-                                                                <option key={st} value={st}>{st}</option>
-                                                            ))}
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                            <div className="d-flex justify-content-end">
+                                                <button onClick={() => { setShowModal(true); setSelectedStatus(dataList?.status) }} className="btn btn-info btn-sm">Change Status</button>
                                             </div>
-
+                                            {/* Toggle buttons */}
+                                            {/* <div style={{display: "flex", justifyContent: "space-evenly"}}> */}
+                                            <div className="btn-group my-3" role="group">
+                                                <button
+                                                    type="button"
+                                                    className={`btn ${activeTab === "overview" ? "btn-primary" : "btn-outline-primary"}`}
+                                                    onClick={() => setActiveTab("overview")}
+                                                >
+                                                    Overview
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className={`btn ${activeTab === "features" ? "btn-primary" : "btn-outline-primary"}`}
+                                                    onClick={() => setActiveTab("features")}
+                                                >
+                                                    Features
+                                                </button>
+                                            </div>
 
                                             {/* Tab content */}
                                             {activeTab === "overview" && (
                                                 <div className="row" style={{ textAlign: "start" }}>
-                                                    <div className="col-6">
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Bedrooms:</div>
-                                                            <div className="col-7">{dataList?.features?.bedRooms}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Baths:</div>
-                                                            <div className="col-7">{dataList?.features?.bathRooms}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Area:</div>
-                                                            <div className="col-7">{dataList?.propertyArea}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Width:</div>
-                                                            <div className="col-7">{dataList?.propertyWidth}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Depth:</div>
-                                                            <div className="col-7">{dataList?.propertyDepth}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Total Floors:</div>
-                                                            <div className="col-7">{dataList?.features?.totalFloors}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Floor No.:</div>
-                                                            <div className="col-7">{dataList?.features?.floorNo}</div>
-                                                        </div>
+                                                    <div className="col-md-6">
+                                                        {dataList?.features?.bedRooms && dataList?.features?.bedRooms != '0' ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Bedrooms:</div>
+                                                                <div className="col-7">{dataList.features.bedRooms}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.features?.bathRooms && dataList?.features?.bathRooms != '0' ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Baths:</div>
+                                                                <div className="col-7">{dataList.features.bathRooms}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.propertyArea && dataList?.propertyArea != '0' ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Area:</div>
+                                                                <div className="col-7">{dataList.propertyArea}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.propertyWidth && dataList?.propertyWidth != '0' ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Width:</div>
+                                                                <div className="col-7">{dataList.propertyWidth}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.propertyDepth && dataList?.propertyDepth != '0' ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Depth:</div>
+                                                                <div className="col-7">{dataList.propertyDepth}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.features?.totalFloors && dataList?.features?.totalFloors != '0' ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Total Floors:</div>
+                                                                <div className="col-7">{dataList.features.totalFloors}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.features?.floorNo && dataList?.features?.floorNo != '0' ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Floor No.:</div>
+                                                                <div className="col-7">{dataList.features.floorNo}</div>
+                                                            </div>
+                                                        ) : null}
                                                     </div>
 
-                                                    <div className="col-6">
-                                                        <div className="row mb-2 align-items-center">
-                                                            <div className="col-5 fw-bold">Status:</div>
-                                                            <div className="col-7">
-                                                                {dataList?.status}
+                                                    <div className="col-md-6">
+                                                        {dataList?.status ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Status:</div>
+                                                                <div className="col-7">{dataList.status}</div>
                                                             </div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Project Status:</div>
-                                                            <div className="col-7">{dataList?.projectStatus}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Street Direction:</div>
-                                                            <div className="col-7">{dataList?.streetDirection}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Street Width:</div>
-                                                            <div className="col-7">{dataList?.streetWidth}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Furnishing:</div>
-                                                            <div className="col-7">{dataList?.furnishing}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Listed By:</div>
-                                                            <div className="col-7">{dataList?.listedBy}</div>
-                                                        </div>
-                                                        <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Listed Date:</div>
-                                                            <div className="col-7">{new Date(dataList?.createdAt).toLocaleString()}</div>
-                                                        </div>
+                                                        ) : null}
+                                                        {dataList?.projectStatus ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Project Status:</div>
+                                                                <div className="col-7">{dataList.projectStatus}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.streetDirection ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Street Direction:</div>
+                                                                <div className="col-7">{dataList.streetDirection}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.streetWidth && dataList?.streetWidth != '0' ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Street Width:</div>
+                                                                <div className="col-7">{dataList.streetWidth}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.furnishing ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Furnishing:</div>
+                                                                <div className="col-7">{dataList.furnishing}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.listedBy ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Listed By:</div>
+                                                                <div className="col-7">{dataList.listedBy}</div>
+                                                            </div>
+                                                        ) : null}
+                                                        {dataList?.createdAt ? (
+                                                            <div className="row mb-2">
+                                                                <div className="col-5 fw-bold">Listed Date:</div>
+                                                                <div className="col-7">
+                                                                    {new Date(dataList.createdAt).toLocaleString()}
+                                                                </div>
+                                                            </div>
+                                                        ) : null}
                                                     </div>
                                                 </div>
                                             )}
 
                                             {activeTab === "features" && (
                                                 <div className="row" style={{ textAlign: "start" }}>
-                                                    <div className="col-6">
+                                                    <div className="col-md-6">
                                                         <div className="row mb-2">
                                                             <div className="col-5 fw-bold">Kitchen:</div>
                                                             <div className="col-7">{dataList?.features?.kitchen ? "Yes" : "No"}</div>
@@ -432,7 +441,7 @@ const PropertyDetails = () => {
                                                         </div>
                                                     </div>
 
-                                                    <div className="col-6">
+                                                    <div className="col-md-6">
                                                         <div className="row mb-2">
                                                             <div className="col-5 fw-bold">Internal Stair:</div>
                                                             <div className="col-7">{dataList?.features?.internalStair ? "Yes" : "No"}</div>
@@ -450,7 +459,11 @@ const PropertyDetails = () => {
                                                             <div className="col-7">{dataList?.features?.drainageAvailability ? "Yes" : "No"}</div>
                                                         </div>
                                                         <div className="row mb-2">
-                                                            <div className="col-5 fw-bold">Coverage:</div>
+                                                            {
+                                                                dataList?.features?.network4g || dataList?.features?.network5g ? (
+                                                                    <div className="col-5 fw-bold">Coverage:</div>
+                                                                ) : null
+                                                            }
                                                             <div className="col-7 d-flex align-items-center">
                                                                 {dataList?.features?.network4g && (
                                                                     <img src="/assets/images/4g.png" alt="4G" className="me-2" style={{ height: "20px" }} />
@@ -574,14 +587,32 @@ const PropertyDetails = () => {
                             </div>
                             <div className="modal-body">
                                 <p>Are you sure you want to change the status to <strong>{selectedStatus}</strong>?</p>
+                                <div className="d-flex justify-content-end">
+                                    <div className="fw-bold mx-2" style={{ whiteSpace: "nowrap" }}>Change Status:</div>
+                                    <select
+                                        value={selectedStatus}
+                                        defaultValue={dataList?.status}
+                                        className="form-select w-25 form-select-sm"
+                                        name="status"
+                                        onChange={(e) => {
+                                            setSelectedStatus(e.target.value);
+                                            setSelectedId(dataList?.uniqueId);
+                                        }}
+                                    >
+                                        <option value="" disabled>Change Status</option>
+                                        {Object.values(PropertyStatus).map((st) => (
+                                            <option key={st} value={st}>{st}</option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
                             <div className="modal-footer">
-                                <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
-                                <button className="btn btn-primary" onClick={async () => {
+                                <button className="btn btn-sm btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
+                                <button className="btn btn-sm btn-primary" onClick={async () => {
                                     setShowModal(false);
                                     await handleStatusChange(selectedStatus, selectedId);
                                 }}>
-                                    Yes, Change
+                                    Submit
                                 </button>
                             </div>
                         </div>
